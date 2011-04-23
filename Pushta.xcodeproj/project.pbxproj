@@ -1,0 +1,301 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2A89429C1362DE3500CC0239 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A89429B1362DE3500CC0239 /* UIKit.framework */; };
+		2A89429E1362DE3500CC0239 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A89429D1362DE3500CC0239 /* Foundation.framework */; };
+		2A8942A01362DE3500CC0239 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A89429F1362DE3500CC0239 /* CoreGraphics.framework */; };
+		2A8942A61362DE3500CC0239 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2A8942A41362DE3500CC0239 /* InfoPlist.strings */; };
+		2A8942A91362DE3500CC0239 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8942A81362DE3500CC0239 /* main.m */; };
+		2A8942AC1362DE3500CC0239 /* PushtaAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8942AB1362DE3500CC0239 /* PushtaAppDelegate.m */; };
+		2A8942AF1362DE3500CC0239 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A8942AD1362DE3500CC0239 /* MainWindow.xib */; };
+		2A8942B21362DE3500CC0239 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8942B11362DE3500CC0239 /* FirstViewController.m */; };
+		2A8942B51362DE3500CC0239 /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8942B41362DE3500CC0239 /* SecondViewController.m */; };
+		2A8942B81362DE3500CC0239 /* FirstView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A8942B61362DE3500CC0239 /* FirstView.xib */; };
+		2A8942BB1362DE3500CC0239 /* SecondView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A8942B91362DE3500CC0239 /* SecondView.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		2A8942971362DE3500CC0239 /* Pushta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pushta.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2A89429B1362DE3500CC0239 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		2A89429D1362DE3500CC0239 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		2A89429F1362DE3500CC0239 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		2A8942A31362DE3500CC0239 /* Pushta-Info.plist */ = {isa = PBXFileReference; path = "Pushta-Info.plist"; sourceTree = "<group>"; };
+		2A8942A51362DE3500CC0239 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		2A8942A71362DE3500CC0239 /* Pushta-Prefix.pch */ = {isa = PBXFileReference; path = "Pushta-Prefix.pch"; sourceTree = "<group>"; };
+		2A8942A81362DE3500CC0239 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		2A8942AA1362DE3500CC0239 /* PushtaAppDelegate.h */ = {isa = PBXFileReference; path = PushtaAppDelegate.h; sourceTree = "<group>"; };
+		2A8942AB1362DE3500CC0239 /* PushtaAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PushtaAppDelegate.m; sourceTree = "<group>"; };
+		2A8942AE1362DE3500CC0239 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
+		2A8942B01362DE3500CC0239 /* FirstViewController.h */ = {isa = PBXFileReference; path = FirstViewController.h; sourceTree = "<group>"; };
+		2A8942B11362DE3500CC0239 /* FirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
+		2A8942B31362DE3500CC0239 /* SecondViewController.h */ = {isa = PBXFileReference; path = SecondViewController.h; sourceTree = "<group>"; };
+		2A8942B41362DE3500CC0239 /* SecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
+		2A8942B71362DE3500CC0239 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/FirstView.xib; sourceTree = "<group>"; };
+		2A8942BA1362DE3500CC0239 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/SecondView.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2A8942941362DE3500CC0239 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2A89429C1362DE3500CC0239 /* UIKit.framework in Frameworks */,
+				2A89429E1362DE3500CC0239 /* Foundation.framework in Frameworks */,
+				2A8942A01362DE3500CC0239 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2A89428C1362DE3500CC0239 = {
+			isa = PBXGroup;
+			children = (
+				2A8942A11362DE3500CC0239 /* Pushta */,
+				2A89429A1362DE3500CC0239 /* Frameworks */,
+				2A8942981362DE3500CC0239 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		2A8942981362DE3500CC0239 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2A8942971362DE3500CC0239 /* Pushta.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2A89429A1362DE3500CC0239 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2A89429B1362DE3500CC0239 /* UIKit.framework */,
+				2A89429D1362DE3500CC0239 /* Foundation.framework */,
+				2A89429F1362DE3500CC0239 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2A8942A11362DE3500CC0239 /* Pushta */ = {
+			isa = PBXGroup;
+			children = (
+				2A8942AA1362DE3500CC0239 /* PushtaAppDelegate.h */,
+				2A8942AB1362DE3500CC0239 /* PushtaAppDelegate.m */,
+				2A8942AD1362DE3500CC0239 /* MainWindow.xib */,
+				2A8942B01362DE3500CC0239 /* FirstViewController.h */,
+				2A8942B11362DE3500CC0239 /* FirstViewController.m */,
+				2A8942B31362DE3500CC0239 /* SecondViewController.h */,
+				2A8942B41362DE3500CC0239 /* SecondViewController.m */,
+				2A8942B61362DE3500CC0239 /* FirstView.xib */,
+				2A8942B91362DE3500CC0239 /* SecondView.xib */,
+				2A8942A21362DE3500CC0239 /* Supporting Files */,
+			);
+			path = Pushta;
+			sourceTree = "<group>";
+		};
+		2A8942A21362DE3500CC0239 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2A8942A31362DE3500CC0239 /* Pushta-Info.plist */,
+				2A8942A41362DE3500CC0239 /* InfoPlist.strings */,
+				2A8942A71362DE3500CC0239 /* Pushta-Prefix.pch */,
+				2A8942A81362DE3500CC0239 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2A8942961362DE3500CC0239 /* Pushta */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2A8942BE1362DE3500CC0239 /* Build configuration list for PBXNativeTarget "Pushta" */;
+			buildPhases = (
+				2A8942931362DE3500CC0239 /* Sources */,
+				2A8942941362DE3500CC0239 /* Frameworks */,
+				2A8942951362DE3500CC0239 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Pushta;
+			productName = Pushta;
+			productReference = 2A8942971362DE3500CC0239 /* Pushta.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2A89428E1362DE3500CC0239 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 2A8942911362DE3500CC0239 /* Build configuration list for PBXProject "Pushta" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 2A89428C1362DE3500CC0239;
+			productRefGroup = 2A8942981362DE3500CC0239 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2A8942961362DE3500CC0239 /* Pushta */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2A8942951362DE3500CC0239 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2A8942A61362DE3500CC0239 /* InfoPlist.strings in Resources */,
+				2A8942AF1362DE3500CC0239 /* MainWindow.xib in Resources */,
+				2A8942B81362DE3500CC0239 /* FirstView.xib in Resources */,
+				2A8942BB1362DE3500CC0239 /* SecondView.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2A8942931362DE3500CC0239 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2A8942A91362DE3500CC0239 /* main.m in Sources */,
+				2A8942AC1362DE3500CC0239 /* PushtaAppDelegate.m in Sources */,
+				2A8942B21362DE3500CC0239 /* FirstViewController.m in Sources */,
+				2A8942B51362DE3500CC0239 /* SecondViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		2A8942A41362DE3500CC0239 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2A8942A51362DE3500CC0239 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		2A8942AD1362DE3500CC0239 /* MainWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2A8942AE1362DE3500CC0239 /* en */,
+			);
+			name = MainWindow.xib;
+			sourceTree = "<group>";
+		};
+		2A8942B61362DE3500CC0239 /* FirstView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2A8942B71362DE3500CC0239 /* en */,
+			);
+			name = FirstView.xib;
+			sourceTree = "<group>";
+		};
+		2A8942B91362DE3500CC0239 /* SecondView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2A8942BA1362DE3500CC0239 /* en */,
+			);
+			name = SecondView.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		2A8942BC1362DE3500CC0239 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		2A8942BD1362DE3500CC0239 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+			};
+			name = Release;
+		};
+		2A8942BF1362DE3500CC0239 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Pushta/Pushta-Prefix.pch";
+				INFOPLIST_FILE = "Pushta/Pushta-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		2A8942C01362DE3500CC0239 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Pushta/Pushta-Prefix.pch";
+				INFOPLIST_FILE = "Pushta/Pushta-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2A8942911362DE3500CC0239 /* Build configuration list for PBXProject "Pushta" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2A8942BC1362DE3500CC0239 /* Debug */,
+				2A8942BD1362DE3500CC0239 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2A8942BE1362DE3500CC0239 /* Build configuration list for PBXNativeTarget "Pushta" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2A8942BF1362DE3500CC0239 /* Debug */,
+				2A8942C01362DE3500CC0239 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2A89428E1362DE3500CC0239 /* Project object */;
+}
