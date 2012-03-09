@@ -48,6 +48,7 @@
 		2A84AA36150A6E9F00479853 /* ASIHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A84AA29150A6E9F00479853 /* ASIHTTPRequest.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2A84AA37150A6E9F00479853 /* ASIInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A84AA2D150A6E9F00479853 /* ASIInputStream.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2A84AA38150A6E9F00479853 /* ASINetworkQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A84AA2F150A6E9F00479853 /* ASINetworkQueue.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		2A84AA46150A805800479853 /* Notify.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 2A84AA45150A805800479853 /* Notify.aiff */; };
 		2A89429C1362DE3500CC0239 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A89429B1362DE3500CC0239 /* UIKit.framework */; };
 		2A89429E1362DE3500CC0239 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A89429D1362DE3500CC0239 /* Foundation.framework */; };
 		2A8942A01362DE3500CC0239 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A89429F1362DE3500CC0239 /* CoreGraphics.framework */; };
@@ -133,6 +134,7 @@
 		2A84AA2E150A6E9F00479853 /* ASINetworkQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASINetworkQueue.h; sourceTree = "<group>"; };
 		2A84AA2F150A6E9F00479853 /* ASINetworkQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASINetworkQueue.m; sourceTree = "<group>"; };
 		2A84AA30150A6E9F00479853 /* ASIProgressDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIProgressDelegate.h; sourceTree = "<group>"; };
+		2A84AA45150A805800479853 /* Notify.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = Notify.aiff; sourceTree = "<group>"; };
 		2A8942971362DE3500CC0239 /* Pushster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pushster.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A89429B1362DE3500CC0239 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2A89429D1362DE3500CC0239 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -267,6 +269,7 @@
 		2A81D482150A594A00A3BC4A /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				2A84AA45150A805800479853 /* Notify.aiff */,
 				2A81D483150A594A00A3BC4A /* pop.wav */,
 				2A81D484150A594A00A3BC4A /* psst1.wav */,
 				2A81D485150A594A00A3BC4A /* psst2.wav */,
@@ -390,6 +393,7 @@
 				2A81D4AD150A594A00A3BC4A /* SettingsViewController.xib in Resources */,
 				2AC02BD5150A5FE60094ACF7 /* Default.png in Resources */,
 				2AC02BD7150A5FEA0094ACF7 /* Default@2x.png in Resources */,
+				2A84AA46150A805800479853 /* Notify.aiff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

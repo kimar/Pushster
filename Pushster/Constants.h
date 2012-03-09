@@ -24,6 +24,7 @@ typedef enum
 #define kJsonStringEncoding                     NSASCIIStringEncoding
 #define kUDID                                   [[UIDevice currentDevice] uniqueIdentifier]
 #define kHttpTimeout                            30
+#define kValidatesSSLCert                       NO
 
 /***
     Filesystem
@@ -47,7 +48,6 @@ typedef enum
 #define kMessageDeleteFailed                    @"messageDeleteFailed"
 
 /***
-    Defaults
+    Settings
 ***/
-#define kDefaultsMessages                       @"defaultsMessages"
-#define kDefaultsLastRefreshTime                @"defaultsLastRefreshTime"
+#define kLastRefreshTime                @"lastRefreshTime"

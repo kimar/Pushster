@@ -76,12 +76,12 @@
     [self readSettings];
     [self readMessages];
     
-    if ([settingsDict objectForKey:kDefaultsLastRefreshTime]!=NULL) 
+    if ([settingsDict objectForKey:kLastRefreshTime]!=NULL) 
     {
-        lastMessagesRefreshDate = [settingsDict objectForKey:kDefaultsLastRefreshTime];
+        lastMessagesRefreshDate = [settingsDict objectForKey:kLastRefreshTime];
     }
     
-    if(([[settingsDict objectForKey:kDefaultsLastRefreshTime] timeIntervalSince1970]+0)<[[NSDate date] timeIntervalSince1970])
+    if(([[settingsDict objectForKey:kLastRefreshTime] timeIntervalSince1970]+0)<[[NSDate date] timeIntervalSince1970])
     {
         [self getOwnMessages];
     }
@@ -216,7 +216,7 @@
 - (void)registerForPushNotificationWithDevToken:(NSString *)devToken 
 {
 	ASIFormDataRequest *request = [[ASIFormDataRequest alloc] initWithURL:[NSURL URLWithString:kServiceUrl]];  
-	//[request setValidatesSecureCertificate:NO];
+	[request setValidatesSecureCertificate:kValidatesSSLCert];
 	[request setDelegate:self];
 	[request setRequestMethod:@"POST"];
 	[request appendPostData:[NSMutableData dataWithData:[self jsonRegisterForPushNotificationWithUdid:kUDID andDevToken:devToken]]];
@@ -228,7 +228,7 @@
 - (void)getOwnMessages 
 {
 	ASIFormDataRequest *request = [[ASIFormDataRequest alloc] initWithURL:[NSURL URLWithString:kServiceUrl]];  
-	//[request setValidatesSecureCertificate:NO];
+	[request setValidatesSecureCertificate:kValidatesSSLCert];
 	[request setDelegate:self];
 	[request setRequestMethod:@"POST"];
 	[request appendPostData:[NSMutableData dataWithData:[self jsonGetMessagesWithUdid:kUDID]]];
@@ -240,7 +240,7 @@
 - (void)deleteMessageWithId:(NSString *)msgId 
 {
 	ASIFormDataRequest *request = [[ASIFormDataRequest alloc] initWithURL:[NSURL URLWithString:kServiceUrl]];  
-	//[request setValidatesSecureCertificate:NO];
+	[request setValidatesSecureCertificate:kValidatesSSLCert];
 	[request setDelegate:self];
 	[request setRequestMethod:@"POST"];
 	[request appendPostData:[NSMutableData dataWithData:[self jsonDeleteMessageWithId:msgId forUdid:kUDID]]];
@@ -298,8 +298,8 @@
                     }
                 }
                 
-                lastMessagesRefreshDate = [NSDate date];
-                [settingsDict setObject:lastMessagesRefreshDate forKey:kDefaultsLastRefreshTime];
+                lastMessagesRefreshDate=[NSDate date];
+                [settingsDict setObject:lastMessagesRefreshDate forKey:kLastRefreshTime];
             }
             if (kDebug) 
             {
