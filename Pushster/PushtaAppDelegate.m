@@ -112,7 +112,8 @@
 
 #pragma mark - APNS
 // Delegation methods
-- (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)devToken {
+- (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)devToken 
+{
    //const void *devTokenBytes = [devToken bytes];
    	NSString *devTok = @"";
 	devTok = [NSString stringWithFormat:@"%@", devToken];
@@ -124,11 +125,13 @@
     [self registerForPushNotificationWithDevToken:[NSString stringWithFormat:@"%@", devTok]];
 }
 
-- (void)application:(UIApplication *)app didFailToRegisterForRemoteNotificationsWithError:(NSError *)err {
+- (void)application:(UIApplication *)app didFailToRegisterForRemoteNotificationsWithError:(NSError *)err 
+{
     NSLog(@"Error in registration. Error: %@", err);
 }
 
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo 
+{
     
     for (id key in userInfo) {
         NSLog(@"key: %@, value: %@", key, [userInfo objectForKey:key]);
