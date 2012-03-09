@@ -10,7 +10,7 @@
     System
 ***/
 #define kDebug YES
-#define kServiceUrl @"http://pushta.indiecoder.net/api.php"
+#define kServiceUrl @"http://pushster.com/api.php"
 #define kJsonStringEncoding NSASCIIStringEncoding
 
 /***

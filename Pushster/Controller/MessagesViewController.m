@@ -87,7 +87,8 @@
 {
     [super viewDidAppear:animated];
     
-    if (appDelegate.lastMessagesRefreshDate == NULL) {
+    if (appDelegate.lastMessagesRefreshDate == NULL) 
+    {
         [self showReloadAnimationAnimated:YES];
         [appDelegate getOwnMessages];
     }
@@ -96,13 +97,15 @@
 #pragma mark -
 #pragma mark Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
     // Return the number of sections.
     return 1;
 }
 
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     // Return the number of rows in the section.
     return [appDelegate.messagesArray count];
 }
@@ -112,13 +115,15 @@
  }*/
 
 // Customize the appearance of table view cells.
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath 
+{
     NSNumber *rNum = [[NSNumber alloc] initWithInt:(arc4random() % 49) +1];
 	static NSString *CellIdentifier;
 	CellIdentifier=[NSString stringWithFormat:@"messages-%d-%d-%d-%@", indexPath.section, indexPath.row, rNum, [appDelegate dateInFormat:@"%s"]];
 
     UITableViewCell *cell = [theTableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
+    if (cell == nil) 
+    {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
     
@@ -175,14 +180,16 @@
 
 #pragma mark - Table view delegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
+{
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 
 }
 
 #pragma mark - Pull to Refresh
 
-- (void)showReloadAnimationAnimated:(BOOL)animated {
+- (void)showReloadAnimationAnimated:(BOOL)animated
+{
 	reloading = YES;
 	[refreshHeaderView toggleActivityView:YES];
 	if (animated) {
@@ -195,11 +202,13 @@
 	}
 }
 
-- (void)reloadTableViewDataSource {
+- (void)reloadTableViewDataSource 
+{
     [appDelegate getOwnMessages];
 }
 
-- (void)dataSourceDidFinishLoadingNewData {
+- (void)dataSourceDidFinishLoadingNewData 
+{
 	reloading = NO;
 	[refreshHeaderView flipImageAnimated:NO];
 	[UIView beginAnimations:nil context:NULL];
@@ -210,18 +219,22 @@
 	[UIView commitAnimations];
 }
 
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView 
+{
 	if (!reloading) checkForRefresh = YES;  //  only check offset when dragging
 } 
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {	
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{	
 	if (reloading) return;
 	if (checkForRefresh) {
-		if (refreshHeaderView.isFlipped && scrollView.contentOffset.y > -65.0f && scrollView.contentOffset.y < 0.0f && !reloading) {
+		if (refreshHeaderView.isFlipped && scrollView.contentOffset.y > -65.0f && scrollView.contentOffset.y < 0.0f && !reloading)
+        {
 			[refreshHeaderView flipImageAnimated:YES];
 			[refreshHeaderView setStatus:kPullToReloadStatus];
 			[popSound play];
-		} else if (!refreshHeaderView.isFlipped && scrollView.contentOffset.y < -65.0f) {
+		} else if (!refreshHeaderView.isFlipped && scrollView.contentOffset.y < -65.0f) 
+        {
 			[refreshHeaderView flipImageAnimated:YES];
 			[refreshHeaderView setStatus:kReleaseToReloadStatus];
 			[psst1Sound play];
@@ -229,10 +242,13 @@
 	}
 }
 
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
 	if (reloading) return;
-	if (scrollView.contentOffset.y <= - 65.0f) {
-		if ([theTableView.dataSource respondsToSelector:@selector(reloadTableViewDataSource)]) {
+	if (scrollView.contentOffset.y <= - 65.0f)
+    {
+		if ([theTableView.dataSource respondsToSelector:@selector(reloadTableViewDataSource)]) 
+        {
 			[self showReloadAnimationAnimated:YES];
 			[psst2Sound play];
 			[self reloadTableViewDataSource];

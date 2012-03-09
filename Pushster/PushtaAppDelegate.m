@@ -133,7 +133,8 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo 
 {
     
-    for (id key in userInfo) {
+    for (id key in userInfo) 
+    {
         NSLog(@"key: %@, value: %@", key, [userInfo objectForKey:key]);
     }    
     
@@ -216,7 +217,8 @@
         [messagesArray removeAllObjects];
         for (int i=0; i<[messagesResponseArray count]; i++) 
         {
-            if (kDebug) {
+            if (kDebug) 
+            {
                 NSLog(@"DEBUG: message: %@", [[messagesResponseArray objectAtIndex:i] objectForKey:@"message"]);
             }
             [messagesArray addObject:
@@ -237,7 +239,8 @@
         [defaults setObject:lastMessagesRefreshDate forKey:kDefaultsLastRefreshTime];
         [defaults synchronize];
     }
-    if (kDebug) {
+    if (kDebug) 
+    {
         NSLog(@"DEBUG: messagesArray Count: %d", [messagesArray count]);
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:kMessagesDataSourceFinishedLoading object:nil];
@@ -246,7 +249,8 @@
 - (void)getOwnMessageRequestFailed:(ASIFormDataRequest *)request
 {
 	NSString *response = [request responseString];
-	if(kDebug) {
+	if(kDebug) 
+    {
 		NSLog(@"DEBUG: getOwnMessageRequestFailed: %@", response);
 	}	
     [[NSNotificationCenter defaultCenter] postNotificationName:kMessagesDataSourceFinishedLoading object:nil];
@@ -255,7 +259,8 @@
 - (void)requestFinished:(ASIFormDataRequest *)request
 {
 	NSString *response = [request responseString];
-	if(kDebug) {
+	if(kDebug)
+    {
 		NSLog(@"DEBUG: requestFinished: %@", response);
 	}		
 }
@@ -263,7 +268,8 @@
 - (void)requestFailed:(ASIFormDataRequest *)request
 {
 	NSString *response = [request responseString];
-	if(kDebug) {
+	if(kDebug) 
+    {
 		NSLog(@"DEBUG: requestFailed: %@", response);
 	}	
 }
