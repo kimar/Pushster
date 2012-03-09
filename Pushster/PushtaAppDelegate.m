@@ -161,9 +161,10 @@
     
     for (id key in userInfo) 
     {
-        NSLog(@"key: %@, value: %@", key, [userInfo objectForKey:key]);
+        if(kDebug) NSLog(@"key: %@, value: %@", key, [userInfo objectForKey:key]);
     }    
-    
+        
+    [self showAlertWithTitle:@"New Message" andMessage:[NSString stringWithFormat:@"%@",[[userInfo objectForKey:@"aps"] objectForKey:@"alert"]]];
     [self getOwnMessages];
 }
 
@@ -355,6 +356,18 @@
 	timeinfo = localtime(&rawtime);
 	strftime(buffer, 80, format, timeinfo);
 	return [NSString  stringWithCString:buffer encoding:NSUTF8StringEncoding];
+}
+
+- (void)showAlertWithTitle:(NSString*)title andMessage:(NSString*)message
+{
+    FLog();
+    UIAlertView*al=[[UIAlertView alloc] initWithTitle:title
+                                              message:message
+                                             delegate:nil
+                                    cancelButtonTitle:@"OK"
+                                    otherButtonTitles:nil, nil
+                    ];
+    [al show];
 }
 
 @end

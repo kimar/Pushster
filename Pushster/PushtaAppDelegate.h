@@ -48,6 +48,7 @@
 - (void)deleteMessageWithId:(NSString*)msgId;
 
 #pragma mark - Helpers
--(NSString*)dateInFormat:(NSString*) stringFormat;
+- (NSString*)dateInFormat:(NSString*) stringFormat;
+- (void)showAlertWithTitle:(NSString*)title andMessage:(NSString*)message;
 
 @end
