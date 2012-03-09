@@ -20,10 +20,6 @@
     return self;
 }
 
-- (void)dealloc
-{
-    [super dealloc];
-}
 
 - (void)didReceiveMemoryWarning
 {
@@ -46,7 +42,6 @@
     UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonItemStyleBordered target:self action:@selector( nilSymbol )];
     [saveButton setImage:[UIImage imageNamed:@"Check.png"]];
     navigationController.navigationItem.rightBarButtonItem = saveButton;
-    [saveButton release];
     
 }
 
@@ -119,7 +114,7 @@
     
     UITableViewCell *cell = [theTableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
     if (indexPath.section == 0) {
@@ -127,7 +122,6 @@
             UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, 310, 25)];
             [label setText:@"Custom device name"];
             [cell.contentView addSubview:label];
-            [label release];
             
             UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(5, 45, 310, 30)];
             [textField setDelegate:self];
@@ -135,7 +129,6 @@
             [textField setPlaceholder:@"Not assigned, click here to assign"];
             //[textField setBorderStyle:UITextBorderStyleRoundedRect];
             [cell.contentView addSubview:textField];
-            [textField release];
         }
     }
     

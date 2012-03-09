@@ -11,12 +11,9 @@
 
 @implementation PushtaAppDelegate
 
-
 @synthesize window=_window;
-
 @synthesize tabBarController=_tabBarController;
-
-@synthesize defaults, lastMessagesRefreshDate, messagesArray;
+@synthesize settingsDict,lastMessagesRefreshDate,messagesArray;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -24,17 +21,19 @@
     // Add the tab bar controller's current view as a subview of the window
     self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];
-    
-    defaults = [NSUserDefaults standardUserDefaults];
-    
+        
     /*** prepare stuff ***/
-    messagesArray = [[[NSMutableArray alloc] init] retain];
-    lastMessagesRefreshDate = [[[NSDate alloc] init] retain];
+    lastMessagesRefreshDate = [[NSDate alloc] init];
     
     /***
         APNS
     ***/
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+    
+    /***
+        Get Messages 
+     ***/
+    [self getOwnMessages];
     
     return YES;
 }
@@ -45,8 +44,8 @@
      Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
      Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
      */
-    [defaults setObject:messagesArray forKey:kDefaultsMessages];
-    [defaults synchronize];
+    [self writeMessages];
+    [self writeSettings];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
@@ -63,19 +62,27 @@
     /*
      Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
      */
-    messagesArray = [[defaults objectForKey:kDefaultsMessages] mutableCopy];
-    
-    if ([defaults objectForKey:kDefaultsLastRefreshTime] != NULL) {
-        lastMessagesRefreshDate = [defaults objectForKey:kDefaultsLastRefreshTime];
-    }
-
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     /*
      Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-     */
+     */    
+    if(kDebug) NSLog(@"lastMessagesRefreshDate=%@",lastMessagesRefreshDate);
+    
+    [self readSettings];
+    [self readMessages];
+    
+    if ([settingsDict objectForKey:kDefaultsLastRefreshTime]!=NULL) 
+    {
+        lastMessagesRefreshDate = [settingsDict objectForKey:kDefaultsLastRefreshTime];
+    }
+    
+    if(([[settingsDict objectForKey:kDefaultsLastRefreshTime] timeIntervalSince1970]+0)<[[NSDate date] timeIntervalSince1970])
+    {
+        [self getOwnMessages];
+    }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -87,14 +94,6 @@
      */
 }
 
-- (void)dealloc
-{
-    [messagesArray release];
-    
-    [_window release];
-    [_tabBarController release];
-    [super dealloc];
-}
 
 /*
 // Optional UITabBarControllerDelegate method.
@@ -109,6 +108,32 @@
 {
 }
 */
+
+#pragma mark - System functions
+- (void)readSettings
+{
+    FLog();
+    settingsDict=[[NSMutableDictionary alloc] initWithContentsOfFile:kSettingsDictPath];
+}
+
+- (void)writeSettings
+{
+    FLog();
+    [settingsDict writeToFile:kSettingsDictPath atomically:YES];
+}
+
+- (void)readMessages
+{
+    FLog();
+    messagesArray=[[NSMutableArray alloc] initWithContentsOfFile:kMessagesArrayPath];
+
+}
+
+- (void)writeMessages
+{
+    FLog();
+    [messagesArray writeToFile:kMessagesArrayPath atomically:YES];
+}
 
 #pragma mark - APNS
 // Delegation methods
@@ -151,8 +176,6 @@
 							  nil];
 	SBJsonWriter *jsonWriter = [[SBJsonWriter alloc] init];
 	NSString *jsonString = [jsonWriter stringWithObject:jsonData];
-	[jsonWriter release];
-	[jsonData release];
 	if(kDebug) {
 		NSLog(@"DEBUG: jsonRegisterForPushNotificationWithDevToken: %@", jsonString);
 	}
@@ -167,12 +190,25 @@
 							  nil];
 	SBJsonWriter *jsonWriter = [[SBJsonWriter alloc] init];
 	NSString *jsonString = [jsonWriter stringWithObject:jsonData];
-	[jsonWriter release];
-	[jsonData release];
 	if(kDebug) {
 		NSLog(@"DEBUG: jsonGetMessagesWithUdid: %@", jsonString);
 	}
 	return [jsonString dataUsingEncoding:kJsonStringEncoding];	
+}
+
+- (NSData*)jsonDeleteMessageWithId:(NSString *)msgId forUdid:(NSString*)udid
+{
+    NSDictionary *jsonData = [[NSDictionary alloc] initWithObjectsAndKeys:
+							  @"del_message", @"command",
+							  udid, @"udid",
+                              msgId, @"message_id",
+							  nil];
+	SBJsonWriter *jsonWriter = [[SBJsonWriter alloc] init];
+	NSString *jsonString = [jsonWriter stringWithObject:jsonData];
+	if(kDebug) {
+		NSLog(@"DEBUG: jsonDeleteMessageWithId: %@", jsonString);
+	}
+	return [jsonString dataUsingEncoding:kJsonStringEncoding];
 }
 
 #pragma mark - ASI functions
@@ -182,10 +218,9 @@
 	//[request setValidatesSecureCertificate:NO];
 	[request setDelegate:self];
 	[request setRequestMethod:@"POST"];
-	[request appendPostData:[NSMutableData dataWithData:[self jsonRegisterForPushNotificationWithUdid:[[UIDevice currentDevice] uniqueIdentifier] andDevToken:devToken]]];
-    [request setTimeOutSeconds:45];  
-	[request setDidFinishSelector:@selector(getOwnMessageRequestFinished:)];
-	[request setDidFailSelector:@selector(getOwnMessageRequestFailed:)];
+	[request appendPostData:[NSMutableData dataWithData:[self jsonRegisterForPushNotificationWithUdid:kUDID andDevToken:devToken]]];
+    [request setTimeOutSeconds:kHttpTimeout];  
+    [request setTag:REGISTER];
 	[request startAsynchronous];	
 }
 
@@ -195,74 +230,84 @@
 	//[request setValidatesSecureCertificate:NO];
 	[request setDelegate:self];
 	[request setRequestMethod:@"POST"];
-	[request appendPostData:[NSMutableData dataWithData:[self jsonGetMessagesWithUdid:[[UIDevice currentDevice] uniqueIdentifier]]]];
-    [request setTimeOutSeconds:45];  
-	[request setDidFinishSelector:@selector(getOwnMessageRequestFinished:)];
-	[request setDidFailSelector:@selector(getOwnMessageRequestFailed:)];
+	[request appendPostData:[NSMutableData dataWithData:[self jsonGetMessagesWithUdid:kUDID]]];
+    [request setTimeOutSeconds:kHttpTimeout];  
+    [request setTag:GETMESSAGES];
+	[request startAsynchronous];	
+}
+
+- (void)deleteMessageWithId:(NSString *)msgId 
+{
+	ASIFormDataRequest *request = [[ASIFormDataRequest alloc] initWithURL:[NSURL URLWithString:kServiceUrl]];  
+	//[request setValidatesSecureCertificate:NO];
+	[request setDelegate:self];
+	[request setRequestMethod:@"POST"];
+	[request appendPostData:[NSMutableData dataWithData:[self jsonDeleteMessageWithId:msgId forUdid:kUDID]]];
+    [request setTimeOutSeconds:kHttpTimeout];  
+    [request setTag:DELMESSAGE];
 	[request startAsynchronous];	
 }
 
 #pragma mark - ASI delegate functions
-- (void)getOwnMessageRequestFinished:(ASIFormDataRequest *)request
-{
-	NSString *response = [request responseString];
-	if(kDebug) {
-		NSLog(@"DEBUG: getOwnMessageRequestFinished: %@", response);
-	}
-    NSDictionary *responseDict = [response JSONValue];
-	NSString *errorCode = [responseDict objectForKey:@"error_code"];
-    NSArray *messagesResponseArray = [responseDict objectForKey:@"messages"];
-	if([errorCode intValue] == 1000)
-    {
-        [messagesArray removeAllObjects];
-        for (int i=0; i<[messagesResponseArray count]; i++) 
-        {
-            if (kDebug) 
-            {
-                NSLog(@"DEBUG: message: %@", [[messagesResponseArray objectAtIndex:i] objectForKey:@"message"]);
-            }
-            [messagesArray addObject:
-             [NSDictionary dictionaryWithObjects:
-              [NSArray arrayWithObjects:
-               [[messagesResponseArray objectAtIndex:i] objectForKey:@"time"], 
-               [[messagesResponseArray objectAtIndex:i] objectForKey:@"message"], 
-               nil]
-                                         forKeys:
-              [NSArray arrayWithObjects:
-               @"time",
-               @"message",
-               nil]
-              ]
-             ];
-        }
-        lastMessagesRefreshDate = [NSDate date];
-        [defaults setObject:lastMessagesRefreshDate forKey:kDefaultsLastRefreshTime];
-        [defaults synchronize];
-    }
-    if (kDebug) 
-    {
-        NSLog(@"DEBUG: messagesArray Count: %d", [messagesArray count]);
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:kMessagesDataSourceFinishedLoading object:nil];
-}
-
-- (void)getOwnMessageRequestFailed:(ASIFormDataRequest *)request
-{
-	NSString *response = [request responseString];
-	if(kDebug) 
-    {
-		NSLog(@"DEBUG: getOwnMessageRequestFailed: %@", response);
-	}	
-    [[NSNotificationCenter defaultCenter] postNotificationName:kMessagesDataSourceFinishedLoading object:nil];
-}
-
 - (void)requestFinished:(ASIFormDataRequest *)request
 {
 	NSString *response = [request responseString];
 	if(kDebug)
     {
 		NSLog(@"DEBUG: requestFinished: %@", response);
-	}		
+	}
+    
+    switch (request.tag)
+    {
+        case REGISTER:
+        case GETMESSAGES:
+        {
+            NSDictionary *responseDict = [response JSONValue];
+            NSString *errorCode = [responseDict objectForKey:@"error_code"];
+            NSArray *messagesResponseArray = [responseDict objectForKey:@"messages"];
+            if([errorCode intValue] == 1000)
+            {
+                [messagesArray removeAllObjects];
+                for (int i=0; i<[messagesResponseArray count]; i++) 
+                {
+                    if (kDebug) 
+                    {
+                        NSLog(@"DEBUG: message: %@", [[messagesResponseArray objectAtIndex:i] objectForKey:@"message"]);
+                    }
+                    [messagesArray addObject:
+                     [NSDictionary dictionaryWithObjects:
+                      [NSArray arrayWithObjects:
+                       [[messagesResponseArray objectAtIndex:i] objectForKey:@"id"],
+                       [[messagesResponseArray objectAtIndex:i] objectForKey:@"time"], 
+                       [[messagesResponseArray objectAtIndex:i] objectForKey:@"message"], 
+                       nil]
+                                                 forKeys:
+                      [NSArray arrayWithObjects:
+                       @"id",
+                       @"time",
+                       @"message",
+                       nil]
+                      ]
+                     ];
+                }
+                lastMessagesRefreshDate = [NSDate date];
+                [settingsDict setObject:lastMessagesRefreshDate forKey:kDefaultsLastRefreshTime];
+            }
+            if (kDebug) 
+            {
+                NSLog(@"DEBUG: messagesArray Count: %d", [messagesArray count]);
+            }
+            [[NSNotificationCenter defaultCenter] postNotificationName:kMessagesDataSourceFinishedLoading object:nil];
+        }
+            break;
+        case DELMESSAGE:
+        {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kMessageDeleteSuccessful object:nil];
+        }
+            break;
+        default:
+            break;
+    }
 }
 
 - (void)requestFailed:(ASIFormDataRequest *)request
@@ -272,6 +317,23 @@
     {
 		NSLog(@"DEBUG: requestFailed: %@", response);
 	}	
+    
+    switch (request.tag)
+    {
+        case REGISTER:
+        case GETMESSAGES:
+        {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kMessagesDataSourceFinishedLoading object:nil];
+        }
+            break;
+        case DELMESSAGE:
+        {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kMessageDeleteFailed object:nil];
+        }
+            break;
+        default:
+            break;
+    }
 }
 
 #pragma mark - Helpers

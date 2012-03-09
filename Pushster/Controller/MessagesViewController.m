@@ -21,10 +21,6 @@
     return self;
 }
 
-- (void)dealloc
-{
-    [super dealloc];
-}
 
 - (void)didReceiveMemoryWarning
 {
@@ -64,7 +60,6 @@
 	[dateFormat setDateFormat:@"LLLL Y"];
 	NSString *dateString = [dateFormat stringFromDate:[NSDate date]];
 	[dateLabel setText:dateString];
-	[dateFormat release];
     
     /*** Notifications ***/
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(finishedLoadingNewData) name:kMessagesDataSourceFinishedLoading object:nil];
@@ -124,7 +119,7 @@
     UITableViewCell *cell = [theTableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) 
     {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
     // Configure the cell...
@@ -186,13 +181,28 @@
 
 }
 
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCellEditingStyle editingStyle=UITableViewCellEditingStyleDelete;
+    return editingStyle;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [appDelegate deleteMessageWithId:[[appDelegate.messagesArray objectAtIndex:indexPath.row] objectForKey:@"id"]];
+    [appDelegate.messagesArray removeObjectAtIndex:indexPath.row];
+    [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationRight];
+
+}
+
 #pragma mark - Pull to Refresh
 
 - (void)showReloadAnimationAnimated:(BOOL)animated
 {
 	reloading = YES;
 	[refreshHeaderView toggleActivityView:YES];
-	if (animated) {
+	if (animated)
+    {
 		[UIView beginAnimations:nil context:NULL];
 		[UIView setAnimationDuration:0.2];
 		theTableView.contentInset = UIEdgeInsetsMake(60.0f, 0.0f, 0.0f, 0.0f);
