@@ -24,6 +24,8 @@
         
     /*** prepare stuff ***/
     lastMessagesRefreshDate = [[NSDate alloc] init];
+    [self readSettings];
+    [self readMessages];
     
     /***
         APNS
@@ -113,7 +115,7 @@
 - (void)readSettings
 {
     FLog();
-    settingsDict=[[NSMutableDictionary alloc] initWithContentsOfFile:kSettingsDictPath];
+    settingsDict=[[NSMutableDictionary alloc] initWithDictionary:[NSDictionary dictionaryWithContentsOfFile:kSettingsDictPath]];
 }
 
 - (void)writeSettings
@@ -125,8 +127,7 @@
 - (void)readMessages
 {
     FLog();
-    messagesArray=[[NSMutableArray alloc] initWithContentsOfFile:kMessagesArrayPath];
-
+    messagesArray=[[NSMutableArray alloc] initWithArray:[NSArray arrayWithContentsOfFile:kMessagesArrayPath]];
 }
 
 - (void)writeMessages
@@ -267,29 +268,36 @@
             NSArray *messagesResponseArray = [responseDict objectForKey:@"messages"];
             if([errorCode intValue] == 1000)
             {
-                [messagesArray removeAllObjects];
-                for (int i=0; i<[messagesResponseArray count]; i++) 
+                if([messagesResponseArray isKindOfClass:[NSArray class]])
                 {
-                    if (kDebug) 
+                    if([messagesResponseArray count]>0)
                     {
-                        NSLog(@"DEBUG: message: %@", [[messagesResponseArray objectAtIndex:i] objectForKey:@"message"]);
+                        [messagesArray removeAllObjects];
+                        for (int i=0; i<[messagesResponseArray count]; i++) 
+                        {
+                            if (kDebug) 
+                            {
+                                NSLog(@"DEBUG: message: %@", [[messagesResponseArray objectAtIndex:i] objectForKey:@"message"]);
+                            }
+                            [messagesArray addObject:
+                             [NSDictionary dictionaryWithObjects:
+                              [NSArray arrayWithObjects:
+                               [[messagesResponseArray objectAtIndex:i] objectForKey:@"id"],
+                               [[messagesResponseArray objectAtIndex:i] objectForKey:@"time"], 
+                               [[messagesResponseArray objectAtIndex:i] objectForKey:@"message"], 
+                               nil]
+                                                         forKeys:
+                              [NSArray arrayWithObjects:
+                               @"id",
+                               @"time",
+                               @"message",
+                               nil]
+                              ]
+                             ];
+                        }
                     }
-                    [messagesArray addObject:
-                     [NSDictionary dictionaryWithObjects:
-                      [NSArray arrayWithObjects:
-                       [[messagesResponseArray objectAtIndex:i] objectForKey:@"id"],
-                       [[messagesResponseArray objectAtIndex:i] objectForKey:@"time"], 
-                       [[messagesResponseArray objectAtIndex:i] objectForKey:@"message"], 
-                       nil]
-                                                 forKeys:
-                      [NSArray arrayWithObjects:
-                       @"id",
-                       @"time",
-                       @"message",
-                       nil]
-                      ]
-                     ];
                 }
+                
                 lastMessagesRefreshDate = [NSDate date];
                 [settingsDict setObject:lastMessagesRefreshDate forKey:kDefaultsLastRefreshTime];
             }
