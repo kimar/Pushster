@@ -269,7 +269,8 @@
 }
 
 #pragma mark - Helpers
--(NSString *)dateInFormat:(NSString*) stringFormat {
+-(NSString *)dateInFormat:(NSString*) stringFormat
+{
 	char buffer[80];
 	const char *format = [stringFormat UTF8String];
 	time_t rawtime;
