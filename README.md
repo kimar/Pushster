@@ -5,6 +5,10 @@ Pushster was planned to help you receive push notifications for dedicated servic
 ![image](https://raw.github.com/kimar/Pushster/master/Screenshots/Screen1.png)
 ![image](https://raw.github.com/kimar/Pushster/master/Screenshots/Screen2.png)
 
+**The Pushster Server**
+
+Have a look at the server's [README](http://raw.github.com/kimar/Pushster/master/Server/README.md) on how to set it up!
+
 
 **The MIT License (MIT)**
 

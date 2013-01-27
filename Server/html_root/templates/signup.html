@@ -1,0 +1,78 @@
+<!-- BEGIN: error -->
+<div class="errorbox">Error: Signup not allowed</div>
+<script type="text/javascript">
+$(function(){  // $(document).ready shorthand
+	$('.errorbox').hide().fadeIn('slow');
+});
+</script>
+<!-- END: error -->
+<!-- BEGIN: main -->
+<div id="content">
+<p id="text">
+<center>
+<h3>Regular sign up</h3>
+<form action="{php_self}?page=signup" method="post">
+<table>
+	<tr>
+		<td>
+			Username
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<input type="text" class="inputboxmiddle">
+		</td>
+	</tr>
+	<tr>
+		<td>
+			Password
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<input type="password" class="inputboxmiddle">
+		</td>
+	</tr>
+	<tr>
+		<td>
+			Password (again)
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<input type="password" class="inputboxmiddle">
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<center><input type="submit" class="buttonarrow" name="signup_regular"></center>
+		</td>
+	</tr>
+</table>
+</form>
+<br>
+<div id="divider"></div>
+<h3>Optional one-click sign up</h3>
+<form action="{php_self}?page=signup" method="post">
+<table>
+	<tr>
+		<td>
+			Unique Device Id
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<input type="text" class="inputboxmiddle">
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<center><input type="submit" class="buttonarrow" name="signup_oneclick"></center>
+		</td>
+	</tr>
+</table>
+</form>
+</center>
+</p>
+</div>
+<!-- END: main -->

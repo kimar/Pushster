@@ -1,0 +1,185 @@
+body {
+  background:#222 url("../images/bg.jpg") 0 0;
+  margin:0;
+  font-family:Arial, Helvetica, sans-serif;
+  font-weight:bold;
+  font-size:14px;
+  color:#555;line-height:20px;
+}
+
+img {
+  border:0;
+}
+
+a, input {
+  outline:none !important;
+}
+
+.wrapper {
+  width:960px;
+  margin:0 auto;
+  position:relative;
+  text-align:center;
+}
+
+#whoops{
+  width:683px;
+  height:433px;
+  background:url("../images/404_light.png") no-repeat;
+  margin:0 auto;
+}
+
+
+/* Content */
+
+.content {
+  text-align:left;
+  padding:30px 0 30px 0px;
+}
+
+.content p {
+  font-weight:bold;
+  font-size:14px;
+  font-family:arial, helvetica, sans-serif;
+  color:#555;line-height:20px;
+  margin:20px 0px 15px 0px;
+  opacity:1.0;
+}
+
+#content {
+  border:1px;
+  background: url('../images/squared_bg.png') repeat;
+  left:10px;top:50px;
+  padding: 10px 10px 10px 10px;
+  -moz-border-radius:5px;
+  -khtml-border-radius:5px;
+}
+
+#divider {
+  width:578px;height:30px;
+  background:url("../images/line.png") no-repeat;
+  margin:0 auto;
+}
+
+a {
+  text-decoration:none;
+  color:#777;
+  line-height:20px;
+}
+
+a:hover {
+  text-decoration:none;
+  color:#333;
+  line-height:20px;
+}
+
+/* Inputs */
+.inputboxmiddle {
+  background:url("../images/searchbox.png") no-repeat 0 0;
+  width:220px;
+  padding:8px 8px 8px 8px;
+  float:left;
+  border:0;
+  font-size:15px;
+  color:#999;
+}
+
+.buttonarrow {
+  background:url("../images/arrow.png") no-repeat 0 0;
+  width:45px;
+  height:33px;
+  cursor:pointer;
+  text-indent:-99999px;
+  font-size:0;
+  line-height:0;
+  border:0;
+  padding:0;
+}
+
+/* Boxes */
+.errorbox {
+  margin: 10px 10px 10px 10px;
+  border:1px;
+  background: url('../images/squared_bg_red.png') repeat;
+  height: 50px;
+  text-align: center;
+  left:10px;top:50px;
+  padding: 10px 10px 10px 10px;
+  -moz-border-radius:5px;
+  -khtml-border-radius:5px;
+  color: #fff;
+}
+
+.okbox {
+  margin: 10px 10px 10px 10px;
+  border:1px;
+  background: url('../images/squared_bg_green.png') repeat;
+  height: 50px;
+  text-align: center;
+  left:10px;top:50px;
+  padding: 10px 10px 10px 10px;
+  -moz-border-radius:5px;
+  -khtml-border-radius:5px;
+  color: #000;
+}
+
+/* Search Box */
+
+.search {
+  width:288px;
+  height:67px;
+  margin:0 auto -10px auto;
+}
+.search .input-box {
+  background:url("../images/searchbox.png") no-repeat 0 0;
+  width:233px;
+  padding:8px 0px 8px 0px;
+  float:left;
+}
+.search .input-box input {
+  border:0;
+  background:0;
+  font-size:15px;
+  color:#999;
+  width:210px;
+}
+.search input.submit {
+  background:url("../images/arrow.png") no-repeat 0 0;
+  width:45px;
+  height:33px;
+  cursor:pointer;
+  text-indent:-99999px;
+  font-size:0;
+  line-height:0;
+  border:0;
+  padding:0;
+}
+
+/* Page Links */
+
+.menu {
+  padding:0px 0px 15px 0px;
+  text-align:center;
+  color :#999;
+}
+
+.menu a  {
+  outline:none;
+  text-decoration:none;
+  background-color:transparent;
+  padding:5px 10px 5px 10px;
+  font-size:14px;
+  color :  #555;
+}
+
+.menu a:hover {
+  color : #333;
+  background-color : transparent;
+}
+
+.separater {
+  font-size:16px;
+  padding:0px 0px 15px 0px;
+  text-align:center;
+  color :#bbb;
+}

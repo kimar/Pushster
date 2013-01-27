@@ -1,0 +1,4 @@
+ErrorDocument 401 http://pushster.com/index.php?page=401
+ErrorDocument 403 http://pushster.com/index.php?page=403
+ErrorDocument 404 http://pushster.com/index.php?page=404
+ErrorDocument 500 http://pushster.com/index.php?page=500

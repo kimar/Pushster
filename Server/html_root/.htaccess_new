@@ -1,0 +1,6 @@
+Options +FollowSymLinks
+RewriteEngine On
+RewriteBase /
+#RewriteCond %{HTTP_HOST} ^pushster.stdio.cc$ [NC]
+#RewriteRule ^(.*)$ http://pushster.stdio.cc/$1 [R=301,L]
+RewriteRule ^([^\.]+)$ /api.php?command=$1&udid=$2&reqid=$3&message_id=$4 [L]
